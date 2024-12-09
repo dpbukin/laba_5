@@ -1,0 +1,88 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#283C3D">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:textColor="#fdfdfd"
+        android:layout_gravity="center"
+        android:layout_marginTop="170dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="Registration" />
+
+    <EditText
+        android:id="@+id/user_login"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColorHint="#888787"
+        android:textColor="#fdfdfd"
+        android:hint="Login" />
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColorHint="#888787"
+        android:textColor="#fdfdfd"
+        android:hint="Email" />
+
+    <EditText
+        android:id="@+id/user_pass"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColorHint="#888787"
+        android:textColor="#fdfdfd"
+        android:hint="Password" />
+
+    <Button
+        android:id="@+id/button_reg"
+        android:layout_width="220dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter_bold"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#C0A89A"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:textColor="#181818"
+        android:text="Registration" />
+
+
+    <TextView
+        android:id="@+id/link_to_auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Authorization"
+        android:textColor="#fdfdfd"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
+
+
+
+
