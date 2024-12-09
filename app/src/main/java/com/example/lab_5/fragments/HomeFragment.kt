@@ -1,6 +1,7 @@
 package com.example.lab_5.fragments
 
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -11,8 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lab_5.R
 import com.example.lab_5.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.lab_5.L5.CharacterAdapter
 import com.example.lab_5.L5.CharacterViewModel
+import java.io.File
+import java.io.IOException
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -52,7 +56,34 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.currentPage.observe(viewLifecycleOwner) { currentPage ->
             binding.prevPageButton.isEnabled = currentPage > 1
         }
+
+        binding.saveToFileButton.setOnClickListener {
+            saveCharactersToFile()
+        }
+
+        binding.openSettingsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+        }
+
     }
+
+    private fun saveCharactersToFile() {
+        viewModel.characters.value?.let { characters ->
+            val fileName = "heroes_20.txt"
+            val content = characters.joinToString("\n") { character -> character.toString() }
+
+            val documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+            val file = File(documentsDir, fileName)
+
+            try {
+                file.writeText(content)
+                Toast.makeText(requireContext(), "Файл сохранён: ${file.absolutePath}", Toast.LENGTH_SHORT).show()
+            } catch (e: IOException) {
+                Toast.makeText(requireContext(), "Ошибка сохранения файла: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

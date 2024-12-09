@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="514dp"
         android:layout_weight="1" />
-
 
     <Button
         android:id="@+id/prevPageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Предыдущая страницы"
-        android:enabled="false"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        android:text="Предыдущая страница" />
 
     <Button
         android:id="@+id/nextPageButton"
-        android:layout_width="wrap_content"
+        android:layout_width="206dp"
         android:layout_height="wrap_content"
-        android:text="Следующая страница"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:text="Следующая страница" />
 
     <TextView
         android:id="@+id/errorText"
@@ -39,5 +38,22 @@
         android:textColor="@android:color/holo_red_dark"
         android:paddingTop="8dp"
         android:gravity="center" />
+
+    <Button
+        android:id="@+id/saveToFileButton"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Сохранить персонажей в файл" />
+
+    <Button
+        android:id="@+id/openSettingsButton"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Открыть настройки" />
+
 
 </LinearLayout>

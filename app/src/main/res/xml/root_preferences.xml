@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="email"
+        android:title="Электронная почта"
+        android:summary="Введите вашу электронную почту" />
+
+    <SwitchPreference
+        android:key="dark_theme"
+        android:title="Тёмная тема"
+        android:summary="Включить/выключить тёмную тему" />
+
+    <Preference
+        android:key="file_status"
+        android:title="Статус файла"
+        android:summary="Проверка наличия файла" />
+
+    <Preference
+        android:key="delete_file"
+        android:title="Удалить файл"
+        android:summary="Удалить файл из внешнего хранилища" />
+
+    <Preference
+        android:key="restore_file"
+        android:title="Восстановить файл"
+        android:summary="Восстановить файл из резервной копии" />
+
+</PreferenceScreen>
