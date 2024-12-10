@@ -11,6 +11,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.example.lab_5.R
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -25,29 +26,32 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val sharedPreferences = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
 
-        // Настройки для электронной почты
         val emailPreference = findPreference<EditTextPreference>("email")
         emailPreference?.setOnPreferenceChangeListener { _, newValue ->
-            sharedPreferences.edit().putString("email", newValue as String).apply()
-            true
-        }
-
-        // Тема оформления (DataStore)
-        val themePreference = findPreference<SwitchPreference>("dark_theme")
-        themePreference?.setOnPreferenceChangeListener { _, newValue ->
             lifecycleScope.launch {
-                saveTheme(newValue as Boolean)
+                //datastore
+                SettingsDataStore.saveEmail(requireContext(), newValue as String)
             }
             true
         }
 
-        // Удаление файла
+        lifecycleScope.launch {
+            val currentEmail = SettingsDataStore.getEmail(requireContext()).first()
+            emailPreference?.text = currentEmail ?: ""
+        }
+
+        val themePreference = findPreference<SwitchPreference>("dark_theme")
+        themePreference?.isChecked = sharedPreferences.getBoolean("dark_theme", false)
+        themePreference?.setOnPreferenceChangeListener { _, newValue ->
+            sharedPreferences.edit().putBoolean("dark_theme", newValue as Boolean).apply()
+            true
+        }
+
         findPreference<Preference>("delete_file")?.setOnPreferenceClickListener {
             deleteFile()
             true
         }
 
-        // Восстановление файла
         findPreference<Preference>("restore_file")?.setOnPreferenceClickListener {
             restoreFile()
             true
@@ -55,11 +59,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun checkFileStatus() {
-        val externalFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), fileName)
-        findPreference<Preference>("file_status")?.summary = if (externalFile.exists()) {
-            "Файл существует во внешнем хранилище."
+        val externalFile = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+            fileName
+        )
+
+        if (!externalFile.parentFile.exists()) {
+            externalFile.parentFile.mkdirs()
+        }
+
+        val statusPreference = findPreference<Preference>("file_status")
+        if (externalFile.exists()) {
+            statusPreference?.summary = "Файл существует во внешнем хранилище."
         } else {
-            "Файл отсутствует во внешнем хранилище."
+            statusPreference?.summary = "Файл отсутствует во внешнем хранилище."
         }
     }
 
@@ -67,8 +80,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val externalFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), fileName)
         if (externalFile.exists()) {
             backupFileToInternalStorage(externalFile)
-            externalFile.delete()
-            Toast.makeText(requireContext(), "Файл удалён из внешнего хранилища.", Toast.LENGTH_SHORT).show()
+            if (externalFile.delete()) {
+                Toast.makeText(requireContext(), "Файл удалён из внешнего хранилища.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Ошибка удаления файла.", Toast.LENGTH_SHORT).show()
+            }
             checkFileStatus()
         } else {
             Toast.makeText(requireContext(), "Файл не найден.", Toast.LENGTH_SHORT).show()
@@ -90,12 +106,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             checkFileStatus()
         } else {
             Toast.makeText(requireContext(), "Резервная копия не найдена.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private suspend fun saveTheme(isDarkMode: Boolean) {
-        requireContext().dataStore.edit { settings ->
-            settings[SettingsDataStore.PreferencesKeys.IS_DARK_MODE] = isDarkMode
         }
     }
 }
