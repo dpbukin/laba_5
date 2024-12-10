@@ -25,14 +25,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val sharedPreferences = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
 
-        // Настройки для электронной почты
         val emailPreference = findPreference<EditTextPreference>("email")
         emailPreference?.setOnPreferenceChangeListener { _, newValue ->
             sharedPreferences.edit().putString("email", newValue as String).apply()
             true
         }
 
-        // Тема оформления (DataStore)
         val themePreference = findPreference<SwitchPreference>("dark_theme")
         themePreference?.setOnPreferenceChangeListener { _, newValue ->
             lifecycleScope.launch {
@@ -41,13 +39,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        // Удаление файла
         findPreference<Preference>("delete_file")?.setOnPreferenceClickListener {
             deleteFile()
             true
         }
 
-        // Восстановление файла
         findPreference<Preference>("restore_file")?.setOnPreferenceClickListener {
             restoreFile()
             true

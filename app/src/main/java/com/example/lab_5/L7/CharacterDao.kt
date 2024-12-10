@@ -12,8 +12,8 @@ interface CharacterDao {
     fun getAllCharacters(): Flow<List<CharacterEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacters(characters: List<CharacterEntity>): List<Long> // Room ожидает List<Long>
+    suspend fun insertCharacters(characters: List<CharacterEntity>): List<Long>
 
     @Query("DELETE FROM characters")
-    suspend fun clearCharacters(): Int // Возвращает количество удаленных строк
+    suspend fun clearCharacters(): Int
 }
