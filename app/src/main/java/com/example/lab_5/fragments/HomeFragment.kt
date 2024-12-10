@@ -43,19 +43,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.fetchCharacters(page = 1)
+//        viewModel.fetchCharacters(page = 1)
+//
+//        binding.nextPageButton.setOnClickListener {
+//            viewModel.loadNextPage()
+//        }
+//
+//        binding.prevPageButton.setOnClickListener {
+//            viewModel.loadPreviousPage()
+//        }
 
-        binding.nextPageButton.setOnClickListener {
-            viewModel.loadNextPage()
-        }
-
-        binding.prevPageButton.setOnClickListener {
-            viewModel.loadPreviousPage()
-        }
-
-        viewModel.currentPage.observe(viewLifecycleOwner) { currentPage ->
-            binding.prevPageButton.isEnabled = currentPage > 1
-        }
+//        viewModel.currentPage.observe(viewLifecycleOwner) { currentPage ->
+//            binding.prevPageButton.isEnabled = currentPage > 1
+//        }
 
         binding.saveToFileButton.setOnClickListener {
             saveCharactersToFile()
@@ -64,6 +64,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.openSettingsButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
         }
+
+        viewModel.characters.observe(viewLifecycleOwner) { characters ->
+            adapter.submitList(characters)
+        }
+
+        binding.refreshButton.setOnClickListener {
+            viewModel.refreshCharacters()
+        }
+
 
     }
 

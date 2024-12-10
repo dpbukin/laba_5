@@ -2,12 +2,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlinx-serialization")
+    id("kotlin-kapt")
 }
-
-apply(plugin = "com.android.application")
-apply(plugin = "org.jetbrains.kotlin.android")
-apply(plugin = "androidx.navigation.safeargs.kotlin")
-apply(plugin = "kotlinx-serialization")
 
 android {
     namespace = "com.example.lab_5"
@@ -43,9 +41,26 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+
 }
 
 dependencies {
+
+    implementation("androidx.room:room-runtime:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
+
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     // DataStore Preferences
     implementation("androidx.datastore:datastore-preferences:1.0.0")

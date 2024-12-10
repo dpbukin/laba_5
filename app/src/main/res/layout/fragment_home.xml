@@ -12,22 +12,22 @@
         android:layout_height="514dp"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/prevPageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:enabled="false"
-        android:text="Предыдущая страница" />
+<!--    <Button-->
+<!--        android:id="@+id/prevPageButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:enabled="false"-->
+<!--        android:text="Предыдущая страница" />-->
 
-    <Button
-        android:id="@+id/nextPageButton"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text="Следующая страница" />
+<!--    <Button-->
+<!--        android:id="@+id/nextPageButton"-->
+<!--        android:layout_width="206dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:text="Следующая страница" />-->
 
     <TextView
         android:id="@+id/errorText"
@@ -54,6 +54,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:text="Открыть настройки" />
+
+    <Button
+        android:id="@+id/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Обновить" />
 
 
 </LinearLayout>
